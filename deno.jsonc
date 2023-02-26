@@ -1,0 +1,10 @@
+{
+  "tasks": {
+    "dev": "deno run --watch main.ts"
+  },
+  "imports": {
+    "cliffy": "https://deno.land/x/cliffy@v0.25.7/command/mod.ts",
+    "dax": "https://deno.land/x/dax@0.28.0/mod.ts",
+    "fp-ts": "https://deno.land/x/fp_ts@v2.11.4/mod.ts"
+  }
+}
