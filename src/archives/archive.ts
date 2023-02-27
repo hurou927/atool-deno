@@ -1,7 +1,10 @@
+import { taskEither } from "fp-ts";
+import { AError } from "../error.ts";
+
 
 export interface Archive {
   validate(filePath: string): boolean;
-  compress(srcFilePaths: string[], destFilePath: string): Promise<void>;
-  decompress(srcFilePath: string, destDirPath: string): Promise<void>;
-  list(srcFilePath: string): Promise<void>;
+  compressTask(srcFilePaths: string[], destFilePath: string): taskEither.TaskEither<AError, void>;
+  decompressTask(srcFilePath: string, destDirPath: string): taskEither.TaskEither<AError, void>;
+  listTask(srcFilePath: string): taskEither.TaskEither<AError, void>;
 }

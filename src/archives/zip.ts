@@ -1,18 +1,20 @@
-import { runCmdRaw } from "../common/cmd.ts";
+import { taskEither } from "fp-ts";
+import { runCmdRaw, runCmdTaskE } from "../common/cmd.ts";
+import { AError } from "../error.ts";
 import { Archive } from "./archive.ts";
 
 export class Zip implements Archive {
   validate(filePath: string): boolean {
     return filePath.endsWith(".zip");
   }
-  async compress(srcFilePaths: string[], destFilePath: string): Promise<void> {
+  compressTask(srcFilePaths: string[], destFilePath: string): taskEither.TaskEither<AError, void> {
     const srcPathsForCmd = srcFilePaths.map((s) => '"' + s + '"').join(" ");
-    await runCmdRaw(`zip -r "${destFilePath}" ${srcPathsForCmd}`);
+    return runCmdTaskE(`zip -r "${destFilePath}" ${srcPathsForCmd}`);
   }
-  async decompress(srcFilePath: string, destDirPath: string): Promise<void> {
-    await runCmdRaw(`unzip "${srcFilePath}" -d "${destDirPath}"`);
+  decompressTask(srcFilePath: string, destDirPath: string): taskEither.TaskEither<AError, void> {
+    return runCmdTaskE(`unzip "${srcFilePath}" -d "${destDirPath}"`);
   }
-  async list(srcFilePath: string): Promise<void> {
-    await runCmdRaw(`unzip -l "${srcFilePath}"`);
+  listTask(srcFilePath: string): taskEither.TaskEither<AError, void> {
+    return runCmdTaskE(`unzip -l "${srcFilePath}"`);
   }
 }
