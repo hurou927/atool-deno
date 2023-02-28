@@ -15,7 +15,8 @@
 
   Commands:
 
-    c  <destPath> <srcPath...>        -
-    l  <srcPath>                      -
-    d  <srcPath> [destDirectoryPath]  -
+    pack    <destPath> <srcPath...>        - Compress files
+    ls      <srcPath>                      - List files
+    unpack  <srcPath> [destDirectoryPath]  - Decompress file
+
 ```
