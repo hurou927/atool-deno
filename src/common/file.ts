@@ -35,7 +35,7 @@ export function statTask(
 export function fileNotExistTask(
   filePath: string
 ): taskEither.TaskEither<AError, void> {
-  return () => stat(filePath).then((opt) => eitherCond(option.isNone(opt), () => {}, () => new AError(`err`)));
+  return () => stat(filePath).then((opt) => eitherCond(option.isNone(opt), () => {}, () => new AError(`${filePath} exist.`)));
 }
 
 
