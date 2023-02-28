@@ -8,7 +8,7 @@ export async function runCmdRaw(cmd: string) {
   await $.raw`${cmd}`
 }
 
-export function runCmdTaskE(cmd: string): taskEither.TaskEither<AError, void> {
+export function runCmdTask(cmd: string): taskEither.TaskEither<AError, void> {
   return taskEither.tryCatch(
    () => runCmdRaw(cmd),
    err => new AError(`Fail to run command: ${cmd}`)

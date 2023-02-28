@@ -1,5 +1,5 @@
 import { taskEither } from "fp-ts";
-import { runCmdRaw, runCmdTaskE } from "../common/cmd.ts";
+import { runCmdTask } from "../common/cmd.ts";
 import { AError } from "../error.ts";
 import { Archive } from "./archive.ts";
 
@@ -9,12 +9,12 @@ export class Zip implements Archive {
   }
   compressTask(srcFilePaths: string[], destFilePath: string): taskEither.TaskEither<AError, void> {
     const srcPathsForCmd = srcFilePaths.map((s) => '"' + s + '"').join(" ");
-    return runCmdTaskE(`zip -r "${destFilePath}" ${srcPathsForCmd}`);
+    return runCmdTask(`zip -r "${destFilePath}" ${srcPathsForCmd}`);
   }
   decompressTask(srcFilePath: string, destDirPath: string): taskEither.TaskEither<AError, void> {
-    return runCmdTaskE(`unzip "${srcFilePath}" -d "${destDirPath}"`);
+    return runCmdTask(`unzip "${srcFilePath}" -d "${destDirPath}"`);
   }
   listTask(srcFilePath: string): taskEither.TaskEither<AError, void> {
-    return runCmdTaskE(`unzip -l "${srcFilePath}"`);
+    return runCmdTask(`unzip -l "${srcFilePath}"`);
   }
 }
